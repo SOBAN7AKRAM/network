@@ -1,5 +1,23 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    
+    <div id="allPosts">
+        <div class="allPostHeader">
+            <h1 class="heading">All Posts</h1>
+            <button class="btn btn-primary" id="newPostBtn">New Post</button>
+        </div>
+        <div class="page">
+
+        </div>
+    </div>
+    <div id="newPost">
+        <h1 class="heading">New Post</h1>
+        <div id="newPostBox">
+            <form class="form" id="newPostForm">
+                {% csrf_token %}
+                <textarea class="form-control" name="postContent" id="postContent" placeholder="Write Post here..." required></textarea>
+                <input class="btn btn-primary" id="postSubmitBtn" type="submit" value="Post">
+            </form>
+        </div>
+    </div>
 {% endblock %}

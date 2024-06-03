@@ -3,4 +3,61 @@ $lightTurtle: #6BBD99;
 $darkPaleTurtle: #AECFA4;
 $lightPaleTurtle: #C4E8C2;
 $sailingRed: #E65C4F;
+$lightBlack: rgb(49, 46, 46);
 
+.registrationBox{
+    display: flex;
+    height: 32rem;
+    width: 25rem;
+    flex-direction: column;
+    border: 1.5px solid $lightBlack;
+    border-radius: 1rem;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    margin: 4rem auto;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.alignText{
+    text-align: center;
+}
+.alert-danger{
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+.OR{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+.line{
+    width: 10rem;
+    height: 1px;
+    background-color: $lightBlack;
+    margin: auto 0rem;
+}
+.heading{
+    margin: 1rem;
+}
+#newPostBtn{
+    margin: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+.allPostHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#postContent{
+    height: 20rem;
+}
+#newPostBox{
+    padding: 2rem;
+}
+#postSubmitBtn{
+    width: 10rem;
+}

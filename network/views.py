@@ -37,7 +37,32 @@ def new_post(request):
     post.save()
     return JsonResponse({"success" : "Posted Successfully"}, status = 201)
 def get_posts(request):
-    pass
+    if request.method != "GET":
+        return JsonResponse({"error" : "GET request required"}, status = 400)
+    post_list = Post.objects.all().order_by("-dateAndTime")
+    paginator = Paginator(post_list, 10)
+    page_Num = int(request.GET.get('page'))
+    posts = paginator.get_page(page_Num)
+    totalPages = paginator.num_pages
+    
+    
+    post_json = []
+    for post in posts: 
+        isOwner = False
+        if post.postedBy == request.user:
+            isOwner = True
+        post_json.append({
+            'postedBy': post.postedBy.username,
+            'content' : post.content,
+            'dateAndTime' : post.dateAndTime,
+            'likes' : post.likes,
+            'isOwner' : isOwner
+        })
+    data = {
+        "posts" : post_json, 
+        "totalPages": totalPages
+    }
+    return JsonResponse(data, safe=False)
 
 
 def login_view(request):

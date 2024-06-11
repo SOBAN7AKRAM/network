@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
-from .models import User, Post, Follow
+from .models import User, Post, Follow, Like
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 import json
@@ -52,6 +52,7 @@ def get_posts(request):
         if post.postedBy == request.user:
             isOwner = True
         post_json.append({
+            'id' : post.id,
             'postedBy': post.postedBy.username,
             'content' : post.content,
             'dateAndTime' : post.dateAndTime,
@@ -63,6 +64,27 @@ def get_posts(request):
         "totalPages": totalPages
     }
     return JsonResponse(data, safe=False)
+def like_post(request, post_id):
+    if not request.user.is_authenticated:
+        return JsonResponse({"error": "Login required"}, status = 403)
+    post = Post.objects.get(id=post_id)
+    like, created = Like.objects.get_or_create(user = request.user, post = post)
+    if not created:
+        like.delete()
+        post.likes -= 1
+        liked = False
+    else:
+        post.likes += 1
+        liked = True
+    post.save()
+    return JsonResponse({'likes': post.likes, 'liked': liked})
+def has_liked(request, post_id):
+    if not request.user.is_authenticated:
+        # return JsonResponse({"error": "Login required"}, status = 403)
+        return JsonResponse({'liked': False})
+    post = Post.objects.get(id=post_id)
+    liked = Like.objects.filter(user = request.user, post = post).exists()
+    return JsonResponse({'liked': liked})
 
 
 def login_view(request):

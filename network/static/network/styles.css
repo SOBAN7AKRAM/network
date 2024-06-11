@@ -104,12 +104,26 @@ body {
   color: rgb(133, 129, 129);
 }
 
+.postLikes:hover {
+  cursor: pointer;
+}
+
 .postComment {
   color: rgb(133, 129, 129);
 }
 
+.postComment:hover {
+  cursor: pointer;
+}
+
 .page-link:hover {
   cursor: pointer;
+}
+
+.heartImg {
+  height: 20px;
+  width: 20px;
+  margin: 0.2rem 0.5rem;
 }
 
 /*# sourceMappingURL=styles.css.map */

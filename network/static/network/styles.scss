@@ -94,10 +94,21 @@ body{
 .postLikes {
     color: $light;
 }
+.postLikes:hover{
+    cursor: pointer;
+}
 
 .postComment{
     color: $light;
 }
+.postComment:hover{
+    cursor: pointer;
+}
 .page-link:hover{
     cursor: pointer;
+}
+.heartImg{
+    height: 20px;
+    width: 20px;
+    margin: 0.2rem 0.5rem;
 }

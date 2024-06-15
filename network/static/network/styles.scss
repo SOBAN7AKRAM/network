@@ -6,7 +6,8 @@ $sailingRed: #E65C4F;
 $lightBlack: rgb(49, 46, 46);
 $light: rgb(133 129 129);
 body{
-    background-color: #fbfbfb;
+    // background-color: #fbfbfb;
+    background-color: white;
 }
 .registrationBox{
     display: flex;
@@ -111,4 +112,50 @@ body{
     height: 20px;
     width: 20px;
     margin: 0.2rem 0.5rem;
+}
+#comments{
+    padding: 20px;
+}
+#makeComment{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 2rem;
+    z-index: 1000;
+}
+#commentsContainer{
+    margin-bottom: 14rem;
+}
+#commentSubmitBtn{
+    width: 10rem;
+}
+#postSaveBtn{
+    width: 10rem;
+}
+#editPostForm{
+    margin: 0rem 2rem;
+    #editPostContent{
+        height: 20rem;
+    }
+}
+#followingLink:hover{
+    cursor: pointer;
+}
+.foll{
+    margin: 0rem 2rem;
+    color: $darkTurtle;
+    #following{
+        padding-left: 4rem;
+    }
+}
+#navProfile:hover{
+    cursor: pointer;
+}
+.postHeading:hover{
+    cursor: pointer;
+}
+#followBtn{
+    margin: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }

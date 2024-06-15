@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+import datetime
 
 
 class User(AbstractUser):
@@ -20,3 +21,9 @@ class Like(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="liked_by")
     class Meta:
         unique_together = ('user', 'post')
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    dateAndTime = models.DateTimeField(default=datetime.datetime.now)
+    comment = models.TextField()

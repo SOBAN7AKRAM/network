@@ -1,28 +1,68 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    <div id="allPosts">
-        <div class="allPostHeader">
-            <h1 class="heading">All Posts</h1>
-            <button class="btn btn-primary" id="newPostBtn">New Post</button>
-        </div>
-        <div class="page">
+<div id="allPosts">
+    <div class="allPostHeader">
+        <h1 class="heading">All Posts</h1>
+        <button class="btn btn-primary" id="newPostBtn">New Post</button>
+    </div>
+    <div class="page">
 
-        </div>
     </div>
-    <div id="newPost">
-        <h1 class="heading">New Post</h1>
-        <div id="newPostBox">
-            <form class="form" id="newPostForm">
-                {% csrf_token %}
-                <textarea class="form-control" name="postContent" id="postContent" placeholder="Write Post here..." required></textarea>
-                <input class="btn btn-primary" id="postSubmitBtn" type="submit" value="Post">
-            </form>
-        </div>
+</div>
+<div id="newPost">
+    <h1 class="heading">New Post</h1>
+    <div id="newPostBox">
+        <form class="form" id="newPostForm">
+            {% csrf_token %}
+            <textarea class="form-control" name="postContent" id="postContent" placeholder="Write Post here..."
+                required></textarea>
+            <input class="btn btn-primary" id="postSubmitBtn" type="submit" value="Post">
+        </form>
     </div>
-    <div class="postsContainer">
+</div>
+<div id="profile">
+    <div class="allPostHeader">
+        <h1 class="heading" id="userName">User</h1>
+        <button class="btn btn-outline-primary" id="followBtn">Follow</button>
     </div>
-    <ul class="pagination justify-content-end" style="margin: 20px 2rem">
-        
-    </ul>
+    <div class="foll">
+        <span id="follower">Follower: <strong></strong> </span>
+        <span id="following">Following: <strong></strong> </span>
+    </div>
+    <h1 class="heading">Posts</h1>
+</div>
+<div id="followingPage">
+    <h1 class="heading">Posts</h1>
+</div>
+<div class="postsContainer">
+</div>
+<div id="comments">
+    <h1 class="heading">Comments</h1>
+    <div id="commentsContainer">
+
+    </div>
+</div>
+<div id="makeComment">
+    <form class="form" id="commentForm">
+        {% csrf_token %}
+        <textarea class="form-control" name="commentContent" id="commentContent" placeholder="Write Comment here..."
+            required></textarea>
+        <input class="btn btn-primary" id="commentSubmitBtn" type="submit" value="Comment">
+    </form>
+</div>
+<div id="editPost">
+    <h1 class="heading">Edit Post</h1>
+    <form class="form" id="editPostForm">
+        {% csrf_token %}
+        <textarea class="form-control" name="postContent" id="editPostContent" required></textarea>
+        <input class="btn btn-primary" id="postSaveBtn" type="submit" value="Save">
+    </form>
+</div>
+
+</div>
+<ul class="pagination justify-content-end" style="margin: 20px 2rem">
+
+</ul>
+
 {% endblock %}

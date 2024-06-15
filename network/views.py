@@ -44,17 +44,31 @@ def get_user_profile(request, user_id):
     # follow or unfollow the user on POST request
     if request.method == "POST" and not request.user.id == user_id:
         user= User.objects.get(id = user_id)
-        follow, created = Follow.objects.get_or_create(user = user)
-        rFollow, rCreated = Follow.objects.get_or_create(user = request.user)
-        # if not created mean user already follow the person
-        if not created: 
-            rFollow.following.remove(user)
-            follow.delete()
+        follow_profile, created = Follow.objects.get_or_create(user=user)
+        f, fCreated = Follow.objects.get_or_create(user = request.user)
+        if request.user in follow_profile.followers.all():
+            # Already following, unfollow
+            follow_profile.followers.remove(request.user)
+            f.following.remove(user)
             isFollowed = False
         else:
-            follow.followers.add(request.user)
-            rFollow.following.add(user)
+            # Not following, follow
+            follow_profile.followers.add(request.user)
+            f.following.add(user)
             isFollowed = True
+
+        # Retrieve updated following and follower counts
+        following_count = follow_profile.following.count()
+        follower_count = follow_profile.followers.count()
+        data = {
+            'isOwner' : False,
+            'username' : user.username,
+            'following' : following_count, 
+            'follower' : follower_count, 
+            'isFollowed': isFollowed
+        }
+        return JsonResponse(data, safe=False)
+     
     if request.method == "PUT":
         return JsonResponse({"error": "GET method required"}, status = 400)
     # GET method to get the total follower and following of user

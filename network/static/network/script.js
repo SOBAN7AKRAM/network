@@ -1,5 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
+    
     const navProfile = document.querySelector('#navProfile');
     if (navProfile != undefined && navProfile != null){
         navProfile.onclick = () => {
@@ -31,28 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
         history.pushState({ page: 'newPost' }, '', 'new-post');
         document.querySelector('#newPostForm').onsubmit = (event) => {
             event.preventDefault();
-            postNewPost().then(async () => {
-                await new Promise((resolve) => {
-                    history.replaceState({ page: 'allPosts', pageNo: 1 }, '', '/');
-                    resolve();
-                });
-
-                document.querySelector('.postsContainer').innerHTML = '';
-                showAllPostPage();
-                getPostsByPage(1, "allPost").then(post => {
-                    addPageToPagination(post.totalPages)
-                    post.posts.forEach(p => {
-                        showPost(p);
-                    });
-                    updatePagination(post.totalPages);
-                });
-            });
-
-
+            postNewPost();
+            
         }
+                
+        
     }
 
 })
+
+
+
 function showFollowingPage(){
     const newPost = document.querySelector('#newPost');
     const allPosts = document.querySelector('#allPosts');
@@ -627,7 +617,7 @@ async function postComment(id){
             console.log(err);
         })
 }
-async function postNewPost() {
+function postNewPost() {
     let content = document.querySelector('#postContent').value;
     let timeStamp = Date.now();
     const csrfToken = document.querySelector('#newPostForm [name="csrfmiddlewaretoken"]').value;
@@ -649,6 +639,18 @@ async function postNewPost() {
                 if (data.error == "User not authenticated") {
                     window.location.href = '/login';
                 }
+            }
+            else{
+                document.querySelector('.postsContainer').innerHTML = '';
+                history.pushState({ page: 'allPosts', pageNo: 1 }, '', '/');
+                showAllPostPage();
+                getPostsByPage(1, "allPost").then(post => {
+                    addPageToPagination(post.totalPages)
+                    post.posts.forEach(p => {
+                        showPost(p);
+                    });
+                    updatePagination(post.totalPages);
+                });
             }
         })
         .catch(err => {
